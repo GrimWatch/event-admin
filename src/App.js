@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route ,Navigate} from "react-router-dom"
+import Home from './pages/Home';
+import Layout from './Layouts';
+import DashBoard from './pages/DashBoard';
+import CreateEvent from './pages/CreateEvent';
+import TotalEvents from "./pages/TotalEvents";
+import RegisterationList from "./pages/RegistrationList";
+import EditEvent from "./pages/EditEvent";
+import DisplayEvent from "./pages/DisplayEvent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="dashboard" element={<DashBoard />} />
+        <Route path="create-event" element={<CreateEvent />} />
+        <Route path="total-events" element={<TotalEvents />} />
+        <Route path="registration-list" element={<RegisterationList />} />
+        <Route path="edit-event" element={<EditEvent />} />
+        <Route path="display-event" element={<DisplayEvent />} />
+        <Route path="*"  element={<Navigate to="/" replace />} />
+      </Routes>
+    </Layout>
   );
 }
 
