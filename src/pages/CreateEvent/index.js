@@ -52,7 +52,7 @@ function CreateEvent() {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND}/api/v1/event`, formData)
 
 
-            if (response.ok) {
+            if (response.status===200) {
                 setFormData({
                     name: '',
                     description: '',
@@ -66,10 +66,8 @@ function CreateEvent() {
                     price:"",
                     image: ""
                 });
-            } else {
-                alert(response.data)
-                console.error('Error submitting form:', response.statusText);
-            }
+                alert("created successfully")
+            } 
         } catch (error) {
             console.error('Error submitting form:', error);
         }

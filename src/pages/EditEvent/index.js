@@ -20,20 +20,26 @@ function EditEvent() {
         coOrdinateNumber:state.coOrdinateNumber,
         whatsappGroup:state.whatsappGroup,
         isTechnical: Boolean(state.isTechnical),
-        price:state.isVerified,
+        price:state.price,
         image: state.image
 
     });
 
 
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        setFormData(prevData => ({
-            ...prevData,
-            image: file
-        }));
-    };
-
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            setFormData({
+              ...formData,
+              image: reader.result
+            });
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      
 
 
 
@@ -78,9 +84,8 @@ function EditEvent() {
                     price:"",
                     image:""
                 });
-            } else {
-                console.error('Error submitting form:', response.statusText);
-            }
+               alert('edited successfully')
+            } 
 
         } catch (error) {
             console.error('Error submitting form:', error);
