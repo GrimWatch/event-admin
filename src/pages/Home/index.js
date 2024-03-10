@@ -4,7 +4,7 @@ import "./index.css";
 
 function Home() {
 
-    const [technical] = useEvent(`${process.env.REACT_APP_BACKEND}/api/v1/event`)
+    const [technical] = useEvent(`${process.env.REACT_APP_BACKEND}/api/v1/event?isTechnical=true`)
     const [nontechnical] = useEvent(`${process.env.REACT_APP_BACKEND}/api/v1/event?isTechnical=false`)
 
     return (
