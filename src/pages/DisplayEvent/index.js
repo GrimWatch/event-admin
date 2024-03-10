@@ -18,6 +18,7 @@ function DisplayEvent() {
                 <p><span>Date:</span> {state.timing}</p>
                 <p><span>Duration:</span> {state.duration}</p>
                 <p><span>Venue:</span> {state.venue}</p>
+                <p><span>Price:</span> {state.price}</p>
                 <p><span>whatsapp group:</span> {state.whatsappGroup}</p>
                 <p><span>Co-ordinate No:</span> {state.coOrdinateNumber}</p>
             </div>

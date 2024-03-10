@@ -11,10 +11,11 @@ function EventCard({event}) {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} >
+    <Card sx={{ width: 300 }} >
       <CardMedia
         component="img"
         alt={event.name}
+        width="300"
         height="140"
         image={event.image}
       />
@@ -23,7 +24,7 @@ function EventCard({event}) {
           {event.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {event.description}
+         Duration:{event.duration}
         </Typography>
       </CardContent>
       <CardActions>

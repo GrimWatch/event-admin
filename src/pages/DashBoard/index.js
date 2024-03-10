@@ -27,10 +27,10 @@ function DashBoard() {
                 <p>Total Events: {technical?.data?.length}</p>
               </div>
               <div>
-                <p>Technical Events: {nontechnical?.data?.length}</p>
+                <p>Technical Events:{technical?.data?.length - nontechnical?.data?.length} </p>
               </div>
               <div>
-                <p>Non Technical Events: {technical?.data?.length - nontechnical?.data?.length}</p>
+                <p>Non Technical Events: {nontechnical?.data?.length}</p>
               </div>
               <div>
                 <p>Student Registered: {user.totalUsers}</p>
