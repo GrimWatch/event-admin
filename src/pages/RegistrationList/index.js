@@ -46,8 +46,7 @@ function RegisterationList() {
 
       await axios.get(`${process.env.REACT_APP_BACKEND}/api/v1/user/${id}`)
         .then(res => {
-          console.log(res.data.data)
-
+          
           fetch(`${process.env.REACT_APP_BACKEND}/api/v1/mail`, {
             method: 'POST',
             headers: {
