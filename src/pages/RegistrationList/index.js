@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import useEvent from '../../hooks/useEvent';
 import axios from 'axios';
@@ -36,19 +36,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function RegisterationList() {
 
-  const [load,setload]=useState(false)
+  const [load, setload] = useState(false)
 
 
   const onVerify = async (id) => {
 
     try {
-        await axios.patch(`${process.env.REACT_APP_BACKEND}/api/v1/user/${id}`, {isVerified:true,userPaymentPhoto:"checked"})
-        setload(true)
-      
-  
+      await axios.patch(`${process.env.REACT_APP_BACKEND}/api/v1/user/${id}`, { isVerified: true, userPaymentPhoto: "checked" })
+
+      await axios.get(`${process.env.REACT_APP_BACKEND}/api/v1/user/${id}`)
+        .then(res => {
+          
+          fetch(`${process.env.REACT_APP_BACKEND}/api/v1/mail`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+              {
+                name: res.data.data.name,
+                email: res.data.data.email,
+                events: res.data.data.technicalEvents.concat(res.data.data.nonTechnicalEvents)
+              }),
+          })
+        })
+
+      // setload(true)
+
+
     } catch (error) {
-        console.error('Error submitting form:', error);
-     }
+      console.error('Error submitting form:', error);
+    }
   }
 
 
@@ -58,10 +76,10 @@ function RegisterationList() {
     }
   }, [load]);
 
-  function debugBase64(base64URL){
+  function debugBase64(base64URL) {
     let win = window.open();
-    win.document.write('<iframe src="' + base64URL  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-}
+    win.document.write('<iframe src="' + base64URL + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+  }
 
 
 
@@ -96,14 +114,14 @@ function RegisterationList() {
               <StyledTableCell align="right">{row.collegeName}</StyledTableCell>
               <StyledTableCell align="right">{`Tech: ${row.technicalEvents}`.toString() + " Non Tech: " + `${row.nonTechnicalEvents}`.toString()}</StyledTableCell>
               <StyledTableCell align="right"><button
-               onClick={()=>{debugBase64(row.userPaymentPhoto)}}
-               disabled={row.isVerified}
-               >View payment</button></StyledTableCell>
+                onClick={() => { debugBase64(row.userPaymentPhoto) }}
+                disabled={row.isVerified}
+              >View payment</button></StyledTableCell>
               <StyledTableCell align="right">
                 <button
-                className={row.isVerified===true?"verified":"verify"}
-                onClick={()=>{onVerify(row._id)}}
-                >{row.isVerified===true?"verified":"verify"} </button>
+                  className={row.isVerified === true ? "verified" : "verify"}
+                  onClick={() => { onVerify(row._id) }}
+                >{row.isVerified === true ? "verified" : "verify"} </button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
